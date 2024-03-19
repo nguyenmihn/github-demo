@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/c3@0.7.20/c3.min.css">
+<script src="https://unpkg.com/c3@0.7.20/c3.min.js"></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="bai3.css">
+        
+    </head>
+    <body onload="hienthithoigian()">
+        <section id="living_room">  
+            <div class="main"> 
+                <div class="left">
+                    <div class="smart">
+                        <h2>Smarthome</h2>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABIFBMVEX///9DxP4fMlBbzPIfL01Jyf8iR2kfMk9DxP9Bq+AeLUkAIUiosLQ3wPu86fb//v8dKUkXLEwXI0Lq6+0PJklIvvUAF0De4eMAHEDGyM8GJ0ZRY3Q5mMYbKEMxfqdpc3/X8PrX2d5ibHvp+v14fodQxffd6OoYJjwAHkBEy/+VnafP0NTU5/I3wfYygKhveYgqX4AhUG4aP13D4O47SVo3RV7o7OoAHjyc2vXt+vc8r9z///dayfYADDhNWW4AACbS8fWm3vaq4/Nuy+u75+9w1e530fiC1PKR2vEeMkguZo5Bpds7kb3l+PZAqdRBt+eMpLMfcZ8AOF2Fj5u0u8ApU30nTWYuPlYAACwAADkAABlMXGtIVW+hpbFL0/+asrv1ksJ3AAANq0lEQVR4nO2dC3+ayBrGgUJQoiUE4i01VZO0RA8xSaO9EKm97LZJL55dPcftabPn+3+LM4NGBmWYAVHA47O/7SWizN9n5n3fGQbKMOuVuebzrVsyY9bibsOq9cqoxd2ElUr+nDc2GtF8lWfZjNGPux2r06t8hgXK9zcz3si2g1Cb6aLMzABZ1thERNn8PANkM5kNDDfmdAzObOzH3aKINQ+YYU9rGxVukDE402k/7lZFqHkHbROFDXLRfLfoIIQ8rcXdsoiEAbQ76ka46DUGZ4i1uFsXgfAOQt30427f0gKA80HGPRaP427hkiIApr+j+nfRiYs3xykONxSArMCmt6PK5nsyIHTx0Tc57raG1DuDBhCUNzcpdfE9KcjMZNx8i7uxIUTZRae6eR13e4MrECCMqHE3OKBM+i6aUsRgDrJ20khTRw02Bh/0KEUuUiR6L6UnooZykIVjMRUdVQ4NyLL5dCA+DhhF0+Zi4DQx72Liw83j0F3UlpD06sYkd9HsAcHFD4lGfEyaTQjZvR0S4qPEIsrmR7KDt/zeJdnFZM4XZRoHOYnjpEvCYfnfE+mizBAdFAbiLQdE4WICl24AIMHBjDDgec6WtHMgEBAT6CJ5DL6ZOGgjklw0fk/YUJTJaUIYwDE4Q9whOJ7/LWGI5CAz4G85RNIlCfFD3EyIaILMG9RBunDzSU6OjWQH34iS6CakGYtxc81EDjKDeQepXDQ+xU02kfki728hTBMLDlIljYQgkqPoG86Lj6aj5uNHhGnCv5FzaWLeRVJEnUdcf7HzgiJNYBycuEh4O4io6Ok+Gqeeqq0MkKbY9gGkShomwug9JDL5lRHWwqSJ4GPRQcSMiZURUlQyInYM0rv42Rl8GMIVbQQ0SQ5i08Sci/6z/gxMGg8urtfDmhG4VAvbUWcurpPQ7JPHoH+QoXYRIsZASAHolybmXSR81gPi+gjNPkvqoll6QBBuyC6a6yUkpgkwo6cag46L5I4qr5GwH1WQQVykCDfy2gjJiX4gBQSkCTev1uYhKchkhIBddIpIdPEVrs6PlpCY6GGpxgcHJCJm2Py7tRD2DcIgFJBlw6CI/l9dhv3g/e1GSWiSg0x2L5SDNiJpLGLOHSVhjehgVgyQBxddJCCunBA4SOqiQdOEW8SksVpCmiAjUcwmfF0kddSVEgJAkoNSyCCDIIZwMSJCqtnEkg6GdDEiwv4p0UFuaQdtxMAuRkJo1k4JpxHe7C0VZJZAjISwRnZwmTSxHGIUhH2yg2FqUZwCJo0ICI9pACOzkKO4vhgxIamLZqJIE/OIAVxcltA8PiVOeKN1cIrof2UqQkIawIgdnCDSAi5JSONgNfRswh+RtqMuR1gjA0q3UXfRgIhLEZIT/fco04RbtEljGcJYgowjaWfVhBRpIqpSDYNI5WJ4wuMbUqmW5VcSZBBE0naGpQgpKpnlZvRUiBQuhrx+aH67IQKGX3QKgEieL+b7TJj9U8cUgCt30EYkuZhhw2yfonDw++q76ETkpBF8440sH98QV9V88qAoilK1ur+8+KmLBEK4ZSMg4rdH/p8I0wQ+DfLVqnj39Un2YFkJFzydixnjc6CRaJLHYHYPcwWU5yRp5zwrnAkwymeWEcueXTgbp8kuBmAkVzLfedxsQqnefRGo5z2kL/KBkCJp5F/Rd1SKKCph0oRYvcwKpCvgYQjJe+DY/DtaRIo8WMWMQV76Gpl/9pkcwghd/HZD7KK4VbXnl4OzyPyzT4UQ0iSN9zSI4QH56l2oK0d+50IJaZLGe3Jx85pYbL/BzZaqd5GRzU7mIgQuEsfiYwIiSBNEB3FLFtW7KEfg9GxuQoqkYTwmdVH/92eE7zgHpYvIuBzNE1LUqPmPfg6+JteiuDQhXQ2it3CRkCZp+DxB7Jh0bYLFpgmu+sQLUHDJ5yWMzhYIKZIGfrZITPTswS1uPrh3t5AmzvKDL09cyqIvP6HS5eIJyUnDwLhI7KLwFlCcheJg7lAhe3dVdev5Eeri1X6VQl61IXksertIAchmcWHG3Xg2c5a92FuY/0vIQRljJ/zyQOmfpIjvtXn/+IbiPnMsIef+VoWvVY+ZR2SEu7njU99NLxn2dOEJYq9J34ov4Z47FQpH+553AUVHCNOaf4PnniAG0gTVkwIwhGL1yxwg59X8KAnJ64DupzOALkpVMOMIr9AvFFQ93k5HSkiew7oQidvu/Ql5VycVrnBFQaSEpOSWMT6hd0n1l/LwOZrtha+4BZyICU3/Ffn5+8FfUCFiCKtoKhewTY+YEFTRfh31xv1kBsonAGII993H4BoWOSGDnwl5PcyH+BxOPKEoOG8FqXB9hMwxbtHT6yEwfk/D9Sfkd1DCIyoP2WgIMVnA81lFMg0iljA/E3vnbnmpMFPvD9Y5zvizV6CQQiCELi4gZnDPfpM/kaZe3oSK1X3m6KmrUZVy0dEzVEUaqQ0vRJTQCxH/RFTzE8FFDOEh+iEnrjbpRXdHCaqnRELz9aM5wlO/57598EdcljC4yISgpna76Pc4exkc7IuIJUTMOamsmxC0GhleYG7o21X8Z4kJJUSmfhT//onvNCqphDLoqJNMZJCvd5t+pVBSCSEidFHIE7roRP0DLGJiCe3hJVDuOpHtLevea58JJgSIecNvMdilvvHJuxBPMiGIqI9prx/KTA1zK2OiCZlgFUU6CYMoIkKxUq47Kv4DUR0n13eSeEJO1Esz/fVHHp1bFEqe6rlqwOQTogLzQ2cnCXZ+qDRSTeh81JZwS7gl3BJuCbeEW8J0E2qit7jqEbLxBBA6r6SLsF2oYPQSWfM2Dq5ezl5Q0E9NPmGxhVUdnVsgPx6iHTv5hCHU3BJuCcNoS7glDKQt4ZYwlLaE/3eEyyn5hBbVvoq5zRjIjxNfl3Iibjbhln5kODq4cl5wfaryFG0HebfJWggptXfk7J1yrXm7dkxrQ7QdVqoI6eb4uqv5Ha+jUkGIvW4hvqyj7fC8wSPdhFIHbUbRc9En3YT6PdqMsr5xhCLnKh6GG+eh2BuhrZAtz82qKSa81ZuuArCoe54vvYRiaehuxVDz/KDUEiqFprsRMuZsqSBcyPi8VrDqc43I7Xqfbv2Eiq5776uY22WBrnkbV+hLujJuz/MxjI4pe9Y/t/jVKtPpBSLXCy2vjUWYUZjG+aG3Wpg+msY5vqfUDvbGjQ0hbGCvQ24I4UkJC7gZhEPPkntzCOW2j4ObQNi1/BzcAMIR53k/18YQFg910r+jlGrCertHMDAmwmhUzFkFjeLGyxjWvNUlVSzWy7mTXxWd7F8shBynLS0dTC/o8OIhXLO2hFvCUIS8a1TxexSiOygZhKJY6bSbiK6Pjo7O4X/n5+AP4H/77y6dH3FH8zp/OPT84Y/nnquqMRC+HLpT/tPBGVHGlUA+6O+LZFxdU9rgHSCnTe9bKhYPvwyyWA3gawPBuAKfR9Bg8K9keFhQmbpWKExvZAK/K9Xq80VNHvj1/PnL/er+v4GH7Nnl/uQns5eA9uu5t7O37CdjVV/pwGu1iu7I9xnRSuOnolyeHVyxwoXHgUq3XCJUbnHUpWpHserOlthDv/KkoLZ03pfQf3YYF2EF3UIBd1AooAp7KMQUTXOYCyowCRIKNiHMMzxyFPRQmfwA98z+mDz8NcpNBQn5Qqcx1i1oJsgljebQKpUUbndX55S3avkv0EuNCWFl3G6ejMFhvH2UxgPC68ZYgzs8xreVZFx7sgl5/mEQ9gCh1ikyjDpimBbHi3wZfuKo2CiNRvfqYZFR69c24dmFpDW64LVuQ+FFe1W/qStdkHm6JxqnnahqOxlXSCHh7fRpM70Kp0HCa0Ydqkz5nmlqlREz+nnYgrv4AUQR9mbVurRj6UW1IzNDq8l09UKLyVmNIjOsdJkReGtHGTNF9XUyaho4x5+IgRcbpoTDXpMZ94qtwk8m11OUH3VA2IJ//I9afludEpZG8s/SWGWsSptp9pSKcm9VuuUfusXkSg2m3a4nhtDRhLByzZwUmmanUmz17plryd7MBTxURd6ONPY4BLH0L7lVqNSZhqaPmAIHw44CxuFLsaKOdkW1+7SXjHHIj9uOfvGVOcJRdyzCC1SQsKjPYumEEJjagsu/pZbam35fkFCUR7uKpbr39MVH6JpYKHqbkS0FIcxNPDycEIoI4dlFTy7nYHTRSiOmh3gICTX9tsVcJ6MuFQ8tR6AIb5Ukh7BwyOQKigKsQgkvJoQFEG5zPzRryJ0wTXCU2LQeCHu5Ua/jfQ0x9rU2tSMihCWtzNxbhyNmkVC4UCxGblttEGr0ItO0Gi3QL6eEP8oMCLLJ2JvoJpRHIH/z4Nsv3DMd7Vm9pIztTAc87BW7IJwUui1A+LewA+ZGkta239SuKCCiAuU0BXwBomKOChZ8k+dl4Bjm+ApyE55uX7oV26DKaYMIeqiIvN7O5Q4rJx2lAS0BP5M4Ef5DGKDc4SpiM9ccayKoaU5yOavE8Q1LEaW2pVSuc0MlGbEUFpCOpj8CJSZvV6f2N7CrgyKVf/gb/FW0+eB7NX1al2q7dvWqPPwC6lTPs21XopYjlPgEaJWEVztJ0J//PaaS37P3MIR0j4pfg/IGlfyeqoQhTJeMEB6mSpmNJ9x8D7eEcTcvAm0J068tYfq1JUy/toSp1+bXpZm8L+GjTRAk+R/QXsrePcyzzQAAAABJRU5ErkJggg==" alt="logo" width="30%">
+                    </div>
+                    <nav>        
+                            <a href="#" class="active" onclick="switchPage(event, 'living_room')">Living Room</a>
+                            <a href="#" onclick="switchPage(event, 'bed_room')">Bed Room</a>
+                            <a href="#" onclick="switchPage(event, 'kitchen')">Kitchen</a>
+                    </nav>
+                </div>
+                <div class="right">
+                    <div class="Welcome">
+                        <h3>Living-room</h3>
+                        <p id="myParagraph">Hello Nhat Minh</p>
+                        <div >
+                            <h5 style="color: rgb(158, 153, 153);">thời gian hiện tại <span id="thoigianliv"></span></h5>
+                        </div>
+                    </div>
+                    <div class="cbtb">
+                        <div class="sensor">
+                            <img src="./img/thermometer.png" alt="logo" width="30%">
+                            <p>Temperature</p>
+                            <h1><span style="color: rgb(232, 14, 14);" id="nhietdo1">None</span></h1>
+                        </div>
+                        <div class="sensor">
+                            <img src="./img/water-drop.png" alt="logo" width="30%">
+                            <p>Humidity</p>
+                            <h1><span style="color: #9d9dcc;" id="doam1">None</span></h1>
+                        </div>
+                        <div class="sensor">
+                            <img src="./img/lightbulb.png" alt="logo" width="30%">
+                            <p>Light</p>
+                            <h1><span style="color: rgb(255, 208, 0);" id="anhsang1">None</span></h1>
+                        </div>
+                        <div class="sensor">
+                            <img src="./img/gas.png" alt="logo" width="30%">
+                            <p>Gas</p>
+                            <h1><span style="color: rgb(83, 83, 105);" id="khigas1">None</span></h1>
+                        </div>
+                    </div>
+                    <div class="cbtb1">
+                        <div class="sensor">
+                            <p>air_condition</p>
+                            <img src="./img/1000_F_480712515_TMPja9HuQQntr1RnaOac0TaydGM3s74t.jpg" alt="logo" width="25%">
+                            <br>
+                            <label class="switch">
+                                <input id="air1" type="checkbox" checked>
+                                <span class="slider"></span>
+                                <p class="toggle-status toggleStatus" data-device-id="air_condition">OFF</p>
+                            </label>
+                        </div>
+                        <div class="sensor">
+                            <p>dishwasher</p>
+                            <img src="./img/240_F_163490487_qUC5mhvGAndXyw9pE0pQsHkxHCznpBvW.jpg" alt="logo" width="25%">
+                            <div class="toggle-container">
+                                <button class="toggle-btn toggleButton" data-device-id=dishwasher></button>
+                                <p class="toggle-status toggleStatus" data-device-id="dishwasher">OFF</p>
+                            </div>
+                        </div>
+                        <div class="sensor">
+                            <p>Fan</p>
+                            <img src="./img/z5214280923144_63bd062e70c2d26d80dfab5047c73cc2.jpg" alt="logo" width="25%">
+                            <div class="toggle-container">
+                                <button class="toggle-btn toggleButton" data-device-id="fan"></button>
+                                <p class="toggle-status toggleStatus" data-device-id="fan">OFF</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cbtb1">
+                        <div class="sensor">
+                            <p>light</p>
+                            <div class="container">
+                                <img id="bulb01" src="./img/light_bulb_on.png" alt="anhden"style="width: 25%; opacity: 0.5">
+                                <div id="sliderNgangValue">5</div>
+                                <input type="range" min="0" max="10" value="5"  id="sliderNgangId">
+                            </div>
+                        </div>
+                        <div class="sensor">
+                            <p>robot</p>
+                            <img src="./img/1000_F_140750405_YvsGOWApSgW7VkH5UuymTeEoUuSeUvbs (1).jpg" alt="logo" width="25%">
+                            <div class="toggle-container">
+                                <button class="toggle-btn toggleButton" data-device-id="robot"></button>
+                                <p class="toggle-status toggleStatus" data-device-id="robot">OFF</p>
+                            </div>
+                        </div>
+                        <div class="sensor">
+                            <p>Television</p>
+                            <img src="./img/television (1).png" alt="logo" width="25%">
+                            <div class="toggle-container">
+                                <button class="toggle-btn toggleButton" data-device-id="Television"></button>
+                                <p class="toggle-status toggleStatus" data-device-id="Television">OFF</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+           
+            </section>
+            <section id="bed_room" style="display: none;">  
+                <div class="main"> 
+                    <div class="left">
+                        <div class="smart">
+                            <h2>Smarthome</h2>
+                            <img src="data:image/png;base64,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" alt="logo" width="30%">
+                        </div>
+                        <nav>        
+                                <a href="#" onclick="switchPage(event, 'living_room')">Living Room</a>
+                                <a href="#" class="active" onclick="switchPage(event, 'bed_room')">Bed Room</a>
+                                <a href="#" onclick="switchPage(event, 'kitchen')">Kitchen</a>
+                        </nav>
+                    </div>
+                    <div class="right">
+                        <div class="Welcome">
+                            <h3>bed-room</h3>
+                            <p id="myParagraph">Hello Nhat Minh</p>
+                            <div >
+                                <h5 style="color: rgb(158, 153, 153);">thời gian hiện tại <span id="thoigianbed"></span></h5>
+                            </div>
+                        </div>
+                        <div class="cbtb">
+                            <div class="sensor">
+                                <img src="./img/thermometer.png" alt="logo" width="30%">
+                                <p>Temperature</p>
+                                <h1><span style="color: rgb(232, 14, 14);" id="nhietdo2">None</span></h1>
+                            </div>
+                            <div class="sensor">
+                                <img src="./img/water-drop.png" alt="logo" width="30%">
+                                <p>Humidity</p>
+                                <h1><span style="color: #9d9dcc;" id="doam2">None</span></h1>
+                            </div>
+                            <div class="sensor">
+                                <img src="./img/lightbulb.png" alt="logo" width="30%">
+                                <p>Light</p>
+                                <h1><span style="color: rgb(255, 208, 0);" id="anhsang2">None</span></h1>
+                            </div>
+                            <div class="sensor">
+                                <img src="./img/gas.png" alt="logo" width="30%">
+                                <p>Gas</p>
+                                <h1><span style="color: rgb(83, 83, 105);" id="khigas2">None</span></h1>
+                            </div>
+                        </div>
+                        <div class="cbtb1">
+                            <div class="sensor">
+                                <p>air_condition</p>
+                                <img src="./img/1000_F_480712515_TMPja9HuQQntr1RnaOac0TaydGM3s74t.jpg" alt="logo" width="25%">
+                                <br>
+                                <label class="switch">
+                                    <input id="air2" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="sensor">
+                                <p>dishwasher</p>
+                                <img src="./img/240_F_163490487_qUC5mhvGAndXyw9pE0pQsHkxHCznpBvW.jpg" alt="logo" width="25%">
+                                <br>
+                                <label class="switch">
+                                    <input id="dish2" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="sensor">
+                                <p>Fan</p>
+                                <img src="./img/z5214280923144_63bd062e70c2d26d80dfab5047c73cc2.jpg" alt="logo" width="25%">
+                                <br>
+                                <label class="switch">
+                                    <input id="fan2" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="cbtb1">
+                            <div class="sensor">
+                                <p>light</p>
+                                <div class="container">
+                                    <img id="bulb02" src="./img/light_bulb_on.png" alt="anhden"style="width: 25%; opacity: 0.5">
+                                    <div id="sliderNgangValue02">5</div>
+                                    <input type="range" min="0" max="10" value="5"  id="sliderNgangId02">
+                                </div>
+                            </div>
+                            <div class="sensor">
+                                <p>robot</p>
+                                <img src="./img/1000_F_140750405_YvsGOWApSgW7VkH5UuymTeEoUuSeUvbs (1).jpg" alt="logo" width="25%">
+                                <br>
+                                <label class="switch">
+                                    <input id="robot2" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="sensor">
+                                <p>Television</p>
+                                <img src="./img/television (1).png" alt="logo" width="25%">
+                                <br>
+                                <label class="switch">
+                                    <input id="Television2" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                </section>
+
+                <section id="kitchen" style="display: none;">  
+                    <div class="main"> 
+                        <div class="left">
+                            <div class="smart">
+                                <h2>Smarthome</h2>
+                                <img src="data:image/png;base64,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" alt="logo" width="30%">
+                            </div>
+                            <nav>        
+                                    <a href="#" onclick="switchPage(event, 'living_room')">Living Room</a>
+                                    <a href="#" onclick="switchPage(event, 'bed_room')">Bed Room</a>
+                                    <a href="#" class="active" onclick="switchPage(event, 'kitchen')">Kitchen</a>
+                            </nav>
+                        </div>
+                        <div class="right">
+                            <div class="Welcome">
+                                <h3>kitchen</h3>
+                                <p id="myParagraph">Hello Nhat Minh</p>
+                                <div >
+                                    <h5 style="color: rgb(158, 153, 153);">thời gian hiện tại <span id="thoigiankit"></span></h5>
+                                </div>
+                            </div>
+                            <div class="cbtb">
+                                <div class="sensor">
+                                    <img src="./img/thermometer.png" alt="logo" width="30%">
+                                    <p>Temperature</p>
+                                    <h1><span style="color: rgb(232, 14, 14);" id="nhietdo3">None</span></h1>
+                                </div>
+                                <div class="sensor">
+                                    <img src="./img/water-drop.png" alt="logo" width="30%">
+                                    <p>Humidity</p>
+                                    <h1><span style="color: #9d9dcc;" id="doam3">None</span></h1>
+                                </div>
+                                <div class="sensor">
+                                    <img src="./img/lightbulb.png" alt="logo" width="30%">
+                                    <p>Light</p>
+                                    <h1><span style="color: rgb(255, 208, 0);" id="anhsang3">None</span></h1>
+                                </div>
+                                <div class="sensor">
+                                    <img src="./img/gas.png" alt="logo" width="30%">
+                                    <p>Gas</p>
+                                    <h1><span style="color: rgb(83, 83, 105);" id="khigas3">None</span></h1>
+                                </div>
+                            </div>
+                            <div class="cbtb1">
+                                <div class="sensor">
+                                    <p>air_condition</p>
+                                    <img src="./img/1000_F_480712515_TMPja9HuQQntr1RnaOac0TaydGM3s74t.jpg" alt="logo" width="25%">
+                                    <br>
+                                    <label class="switch">
+                                        <input id="air3" type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="sensor">
+                                    <p>dishwasher</p>
+                                    <img src="./img/240_F_163490487_qUC5mhvGAndXyw9pE0pQsHkxHCznpBvW.jpg" alt="logo" width="25%">
+                                    <br>
+                                    <label class="switch">
+                                        <input id="dishwasher3" type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="sensor">
+                                    <p>Fan</p>
+                                    <img src="./img/z5214280923144_63bd062e70c2d26d80dfab5047c73cc2.jpg" alt="logo" width="25%">
+                                    <br>
+                                    <label class="switch">
+                                        <input id="Fan3" type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="cbtb1">
+        
+                                <div class="sensor">
+                                    <p>light</p>
+                                    <div class="container">
+                                        <img id="bulb03" src="./img/light_bulb_on.png" alt="anhden"style="width: 25%; opacity: 0.5">
+                                        <div id="sliderNgangValue03">5</div>
+                                        <input type="range" min="0" max="10" value="5"  id="sliderNgangId03">
+                                    </div>
+                                </div>
+                                <div class="sensor">
+                                    <p>robot</p>
+                                    <img src="./img/1000_F_140750405_YvsGOWApSgW7VkH5UuymTeEoUuSeUvbs (1).jpg" alt="logo" width="25%">
+                                    <br>
+                                    <label class="switch">
+                                        <input id="robot3" type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="sensor">
+                                    <p>Television</p>
+                                    <img src="./img/television (1).png" alt="logo" width="25%">
+                                    <br>
+                                    <label class="switch">
+                                        <input id="Television3" type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    </section>
+
+                    
+                     <div class="footer">
+                        <div id="donghonguoc">
+                            <button onclick="thoigian(10)">10 giây</button>
+                            <button onclick="thoigian(30)">30 giây</button>
+                            <button onclick="thoigian(60)">1 phút</button>
+                            <button onclick="thoigian(600)">10 phút</button>
+                            <button onclick="tamdung()">tạm dừng</button>
+                            <button onclick="demnguoc()">đếm tiếp</button>
+                            <h3>thời gian còn lại</h3>
+                            <h4> <span id="sophut"></span> : <span id="sogiay"></span></h4>
+                            <!-- <div id="buttons">
+                                <button onclick="tamdung()">tạm dừng</button>
+                                <button onclick="demnguoc()">đếm tiếp</button>
+                            </div> -->
+                        </div>
+                        <!-- <ul>
+                        <li>Nguyễn Đình Nhật Minh-21119373</li>
+                        <li>Điện thoại:0854130203</li>
+                        <li>Trường đại học SPKT</li>
+                        </ul> -->
+                    </div>
+        <script>
+            var thoiluong = 0;
+            var mytime;
+            function thoigian(x){
+                thoiluong = x;
+                clearTimeout(mytime);
+                demnguoc();
+            }
+            function demnguoc(){
+                thoiluong--;
+                sophut = Math.floor(thoiluong / 60);
+                sogiay = thoiluong % 60;
+
+                document.getElementById("sophut").innerHTML = sophut;
+                document.getElementById("sogiay").innerHTML = sogiay;
+
+                if(thoiluong > 0)
+                    mytime = setTimeout(demnguoc, 1000);
+                else
+                    document.getElementById("hetgio").style.display = "block";
+            }
+            function dinhdang2so(x){
+                if(x < 10)
+                    x = "0" + x;
+                return x;
+            }
+            function tamdung(){
+                clearTimeout(mytime);
+            }
+            function hienthithoigian(){
+                const t = new Date();
+                let h = t.getHours();
+                let m = t.getMinutes();
+                let s = t.getSeconds();
+                
+                m = dinhdang2so(m);
+                s = dinhdang2so(s);
+                h = dinhdang2so(h);
+
+                document.getElementById("thoigianliv").innerHTML = h + ":" + m + ":" + s;
+                document.getElementById("thoigianbed").innerHTML = h + ":" + m + ":" + s;
+                document.getElementById("thoigiankit").innerHTML = h + ":" + m + ":" + s;
+                setTimeout(hienthithoigian, 1000);
+            }
+
+            
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script> 
+        <script type="application/javascript" src="bai3.js" async defer></script>
+    </body>
+</html>

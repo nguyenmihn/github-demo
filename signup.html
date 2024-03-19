@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Registration</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+        <style>
+            body{
+                background: url('../css-form-login-show-hide-password-master/img/Wallpaper-4k-Hình-nền-4k-hình-ảnh-về-vũ-trụ-cực-dẹp-scaled.jpg');
+                background-size: cover;
+                background-position-y: -100px;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <form action="" id="form-login">
+                <h1 class="form-heading">Đăng ký</h1>
+                <div class="form-group">
+                    <i class="far fa-user"></i>
+                    <input type="text" class="form-input" placeholder="Enter new username" id="newUsername" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" class="form-input" placeholder="Enter new password" id="newPassword" required>
+                    <div id="eye">
+                        <i class="far fa-eye"></i>
+                    </div>
+                </div>
+                    <input onclick="register()" type="submit" value="Đăng ký" class="form-submit">
+                    <a href="index.html">đăng nhập</a>
+            </form>
+        </div>
+        <script>
+            function generateToken() {
+                return Math.random().toString(36).substr(2); 
+            }
+
+            function register() {
+                const newUsername = document.getElementById("newUsername").value.trim();
+                const newPassword = document.getElementById("newPassword").value.trim();
+
+                if (newUsername && newPassword) {
+                    const existingAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
+                    const existingUser = existingAccounts.find(user => user.username === newUsername);
+
+                    if (existingUser) {
+                        alert("Username already exists. Please choose another one.");
+                    } else {
+                        const token = generateToken();
+                        existingAccounts.push({ username: newUsername, password: newPassword, token: token });
+                        localStorage.setItem("accounts", JSON.stringify(existingAccounts));
+                        localStorage.setItem("token", token); 
+                        alert("Registration successful. You can now login with your new credentials.");
+                        document.getElementById("newUsername").value = "";
+                        document.getElementById("newPassword").value = "";
+                    }
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>

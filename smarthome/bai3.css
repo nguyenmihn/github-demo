@@ -1,0 +1,269 @@
+* {
+    margin: 2px;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: #000000;
+    font-family: sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    margin: 5;
+}
+
+nav {
+    background: #372b2b;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+nav a {
+    padding: 10px;
+    color: #fff;
+    text-decoration: #ddd;
+    padding: 10px;
+    margin: 5;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 100%; /* Sử dụng chiều cao của viewport (màn hình) */
+}
+
+.smart {
+    padding: 0 0 0 0;
+}
+
+.left {
+    flex: 2;
+    background: #3f3f44;
+    padding: 3em 0;
+    border-radius: 10px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: center;
+    background: #3f3f44;
+    padding: 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: self-start;
+    height: 100px;
+    text-align: left;
+}
+.right {
+    flex: 8;
+    padding: 3em 5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.living_room{
+    height: 100%;
+}
+.bed_room{
+    height: 100%;
+}
+.kitchen{
+    height: 100%;
+}
+.Welcome {
+    flex: 0.1;
+    background-color: #3f3f44;
+    border: 1px solid #3f3f44;
+    border-radius: 10px;
+    padding: 0 30em 0 0;
+    flex-grow: 0.3;
+}
+.sensor{
+    background: #3f3f44;
+    border-radius: 10px;
+    flex-grow: 1;
+    width: 30%;
+}
+.click{
+    background: #3f3f44;
+    border-radius: 10px;
+    flex-grow: 1;
+}
+.sensor1{
+    background: #3f3f44;
+    border-radius: 10px;
+    flex-grow: 1;
+    width: 30%;
+}
+.cbtb {
+    background: #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-grow: 0.6;
+    width: 100%;
+    flex-direction: row;
+}
+.cbtb1 {
+    background: #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-grow: 0.05;
+    width: 100%;
+    flex-direction: row;
+}
+.cbtb2 {
+    background: #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-grow: 0.05;
+    width: 100%;
+    flex-direction: row;
+}
+.switch {
+    position: fixed; /* Đặt vị trí tuyệt đối trên màn hình */
+    top: 10px; /* Khoảng cách từ trên xuống */
+    left: -80px; /* Khoảng cách từ trái sang phải */
+    display: inline-block;
+    width: 69px;
+    height: 37px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: .4s;
+}
+
+/* Thêm các kiểu CSS cho slider */
+.slider-container {
+    width: 50%;
+    margin: 0px auto;
+}
+
+input[type="range"] {
+    width: 80%;
+}
+
+#slider-value {
+    margin-top: 10px;
+}
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .toggle-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #ccc;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #ddd;
+  }
+  
+  .toggle-btn.active {
+    background-color: #2196F3;
+    color: #fff;
+  }
+    
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+canvas {
+    width: 100%;
+    height: 200px; /* Điều chỉnh chiều cao của biểu đồ theo nhu cầu */
+}
+
+  
+  .switch {
+      position: relative;
+      display: inline-block;
+      width: 70px;
+      height: 42px;
+  }
+  /* The slider */
+  .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+  .switch input{ display: none}
+  .slider:before
+  {
+      position: absolute;
+      content: "";
+      height: 34px;
+      width: 34px;
+      left: 3px;
+      bottom: 2.5px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50px;
+  }
+
+input:checked + .slider {
+    background-color: #b82323;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #fe0000;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+@media screen and (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+    html{
+        width: fit-content;
+    }
+
+
+}
